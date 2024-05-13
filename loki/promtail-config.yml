@@ -1,6 +1,6 @@
 server:
   http_listen_port: 9080
-  grpc_listen_port: 0
+  grpc_listen_port: 9095
 
 positions:
   filename: /tmp/positions.yaml
@@ -9,10 +9,10 @@ clients:
   - url: http://loki:3100/loki/api/v1/push
 
 scrape_configs:
-  - job_name: 'log-generator'
+  - job_name: 'varlogs'
     static_configs:
-    - targets:
-        - localhost
-      labels:
-        job: varlogs
-        __path__: /var/log/*log
+      - targets:
+          - localhost
+        labels:
+          job: varlogs
+          __path__: /var/log/*/*-json.log
