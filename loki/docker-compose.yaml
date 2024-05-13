@@ -8,6 +8,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=secret
     depends_on:
       - loki
+      - prometheus
     networks:
       - logging
 
@@ -28,6 +29,15 @@ services:
       - logging
     depends_on:
       - loki
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - logging
 
   log-generator:
     image: busybox
