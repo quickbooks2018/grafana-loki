@@ -75,5 +75,8 @@ https://grafana.com/grafana/dashboards/15141-kubernetes-service-logs/
 ```bash
 https://grafana.com/grafana/dashboards/315-kubernetes-cluster-monitoring-via-prometheus/
 315
+
+https://grafana.com/grafana/dashboards/14205-kubernetes-cluster-monitoring-via-prometheus/
+14205
 ```
 - Navigate the grafana explore and see the logs of the redis pod and run queries
