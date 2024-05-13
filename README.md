@@ -45,3 +45,30 @@ helm show values grafana/loki-stack --version 2.10.2
 helm show values grafana/loki-stack --version 2.10.2 > loki-stack-values.yaml
 helm -n grafana-loki upgrade --install loki grafana/loki-stack --version 2.10.2 --create-namespace -f loki-stack-values.yaml --wait
 ```
+
+- Grafana
+```bash
+kubectl port-forward -n grafana-loki service/loki-grafana 3000:80
+user: admin
+pass: see the password in the kubernetes secrets
+```
+
+- Note: loki promtail configuration is in the secrets with name loki-promtail 
+
+- deploy a test pod to see the logs in grafana
+```bash
+k -n default run redis --image=redis:latest
+k -n default run nginx --image=nginx:latest
+```
+
+- Grafana kubernetes Dashboard
+```bash
+https://grafana.com/grafana/dashboards/17781-loki-metrics-dashboard/
+17781
+
+Best for application logs
+https://grafana.com/grafana/dashboards/15141-kubernetes-service-logs/
+15141
+```
+
+- Navigate the grafana explore and see the logs of the redis pod and run queries
