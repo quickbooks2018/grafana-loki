@@ -32,3 +32,16 @@ http://localhost:3100/metrics
 https://grafana.com/grafana/dashboards/13639-logs-app/
 ID 13639
 ```
+
+# Deploying Loki Stack on Kubernetes with Helm
+```bash
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+helm repo ls
+helm search repo grafana --versions
+helm search repo grafana/loki-stack
+helm search repo grafana/loki-stack --versions
+helm show values grafana/loki-stack --version 2.10.2
+helm show values grafana/loki-stack --version 2.10.2 > loki-stack-values.yaml
+helm -n grafana-loki upgrade --install loki grafana/loki-stack --version 2.10.2 --create-namespace -f loki-stack-values.yaml --wait
+```
