@@ -43,8 +43,6 @@ services:
   log-generator:
     image: busybox
     command: /bin/sh -c "while true; do echo \"$(date +'%Y-%m-%dT%H:%M:%S') [INFO] Action performed successfully.\"; sleep 1; done"
-    volumes:
-      - ./log:/var/log
     networks:
       - logging
 
