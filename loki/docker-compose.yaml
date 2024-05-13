@@ -1,0 +1,44 @@
+---
+services:
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=secret
+    depends_on:
+      - loki
+    networks:
+      - logging
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - logging
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - ./promtail-config.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - logging
+    depends_on:
+      - loki
+
+  log-generator:
+    image: busybox
+    command: /bin/sh -c "while true; do echo \$$RANDOM; sleep 1; done"
+    volumes:
+      - ./log:/var/log
+    networks:
+      - logging
+
+networks:
+  logging:
+
+volumes:
+  log:
