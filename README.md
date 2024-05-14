@@ -80,3 +80,35 @@ https://grafana.com/grafana/dashboards/14205-kubernetes-cluster-monitoring-via-p
 14205
 ```
 - Navigate the grafana explore and see the logs of the redis pod and run queries
+
+- Helm Install Metrics Server
+```bash
+helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+
+helm repo update
+
+helm search repo metrics-server --versions
+
+helm show values metrics-server/metrics-server --version 3.12.1
+
+helm -n kube-system install metrics-server metrics-server/metrics-server --version 3.12.1 --wait
+
+Bitnami Metrics Server
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+helm repo update
+
+helm search repo bitnami/metrics-server --versions
+
+helm show values bitnami/metrics-server --version 7.0.4
+
+helm -n kube-system install metrics-server bitnami/metrics-server --version 7.0.4 --wait
+```
+
+- Metrics Server Installation on Kind Cluster
+```bash
+helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+helm repo update
+helm upgrade --install --set args={--kubelet-insecure-tls} metrics-server metrics-server/metrics-server --namespace kube-system
+```
