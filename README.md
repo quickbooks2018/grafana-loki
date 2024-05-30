@@ -112,3 +112,9 @@ helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
 helm repo update
 helm upgrade --install --set args={--kubelet-insecure-tls} metrics-server metrics-server/metrics-server --namespace kube-system
 ```
+
+- Disable GKE pods logging
+```bash
+gcloud config set project playground-s-11-34390ad8
+gcloud container clusters update cluster-1 --logging=NONE --region us-central1-c
+```
